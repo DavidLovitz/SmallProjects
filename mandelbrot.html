@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Javascript</title>
+	<body>
+	</head>
+	<canvas id="myCanvas" width="800" height="600" style="border:1px solid #000000;">
+    </canvas>
+		<script>
+				var c = document.getElementById("myCanvas");
+				var ctx = c.getContext("2d");
+				var Width = 800;
+				var Height = 600;
+				var MinRe = -2.0;
+				var MaxRe = 1.0;
+				var MinIm = -1.2;
+				var MaxIm = MinIm+(MaxRe-MinRe)*(Height/Width);
+
+// 				var MinRe = -1.0;
+// 				var MaxRe = .50;
+// 				var MinIm = -.6;
+// 				var MaxIm = (MinIm+(MaxRe-MinRe)*(Height/Width))/2;
+
+				var re_factor = (MaxRe-MinRe)/(Width-1);
+				var im_factor = (MaxIm-MinIm)/(Height-1);
+				var maxIteration = 100;
+			
+				for(i=0;i<Width; i++){
+					var c_re = MinRe + i*re_factor;
+					for(j=0;j<Height; j++){
+						var c_im = MaxIm - j*im_factor;
+						var z_re = c_re, z_im = c_im;
+						var isIn = 1;
+						for(k=0;k<maxIteration; k++){
+							var z_re2 = z_re*z_re, z_im2 = z_im*z_im;
+							if(z_re2 + z_im2 >4){
+								isIn = 0;
+								break;
+							}
+							z_im = 2*z_re*z_im +c_im;
+							z_re = z_re2 - z_im2 + c_re;
+						}
+						if(isIn){
+							ctx.fillRect(i,j,1,1);
+						}
+					}
+				}
+		</script>
+	</body>
+</html>
