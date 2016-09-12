@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="900" height="900"></canvas>
+    <script>
+      function Point(x,y){
+      	this.x = x;
+      	this.y = y;
+      }
+      function draw(canvas, pts) {
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        for(i=0; i<pts.length; i++){
+        	var x = pts[i].x;
+        	var y = pts[i].y;
+         	context.fillStyle = 'black';
+        	context.beginPath();
+        	context.arc(x,y,2,0,2*Math.PI);
+        	context.stroke();
+        }
+   
+        for(i=0;i<pts.length;i++){
+      		var xp = pts[i].x;
+      		var yp = pts[i].y;
+    		context.fillText("" + xp + "," +yp, xp,yp-4);
+      	}
+    	
+      	var t=0;
+      	if(pts.length>3){
+        	for(j=0;j<100;j++){
+        		var t=j/100.0;
+        		var pt = bezier(t,pts);
+        		context.fillRect(pt.xv,pt.yv,1,1);
+        	}
+        }
+      }
+      function getPosition(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }
+      //0<=t<=1 CUBIC 
+      function bezier(t,pts){
+      	var xval=Math.pow(t,3)*(pts[3].x +3*(pts[1].x-pts[2].x)-pts[0].x) + 3*Math.pow(t,2)*(pts[0].x-2*pts[1].x+pts[2].x)+3*t*(pts[1].x-pts[0].x)+pts[0].x;
+      	var yval=Math.pow(t,3)*(pts[3].y +3*(pts[1].y-pts[2].y)-pts[0].y) + 3*Math.pow(t,2)*(pts[0].y-2*pts[1].y+pts[2].y)+3*t*(pts[1].y-pts[0].y)+pts[0].y;
+    	return {
+      		xv:xval,
+      		yv:yval
+    	};
+      }
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var pts = [];
+
+      canvas.addEventListener('mousedown', function(evt) {
+      		var mousePos = getPosition(canvas, evt);
+      		pts[pts.length]= (new Point(mousePos.x,mousePos.y));
+      		draw(canvas, pts);
+      }, false);
+    </script>
+  </body>
+</html>
+
