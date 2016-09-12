@@ -10,9 +10,10 @@ Draws a cartoid based on the mouse positon
 (read more here: http://mathworld.wolfram.com/Cardioid.html)
 
 ##cubicBezier.html
-Click to add four points anywhere in the screen. A cubic bezier curve is then fit to the four points
+Click to add four points anywhere in the screen. A cubic bezier curve is then fit to the four points (written in javascript/html)
+More info:
 https://en.wikipedia.org/wiki/B%C3%A9zier_curve
-written in javascript/html
+
 
 ##Mandelbrot.html
 Draws the mandelbrot set using javascript/html
