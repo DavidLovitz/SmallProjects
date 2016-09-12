@@ -9,7 +9,7 @@ The output points are scaled graphed using Tkinter
 Draws a cartoid based on the mouse positon
 (read more here: http://mathworld.wolfram.com/Cardioid.html)
 
-##cubicBezier
+##cubicBezier.html
 Click to add four points anywhere in the screen. A cubic bezier curve is then fit to the four points
 https://en.wikipedia.org/wiki/B%C3%A9zier_curve
 written in javascript/html
